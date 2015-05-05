@@ -14,6 +14,7 @@ router.post('/submit', function(req, res) {
   
   var title = req.body.pageTitle;
   var body = req.body.pageContent; 
+  var tags = req.body.pageTags;
   var generateUrlName = function(name) {
   if (typeof name != "undefined" && name !== "") {
     // Removes all non-alphanumeric characters from name
@@ -26,8 +27,13 @@ router.post('/submit', function(req, res) {
 
   };
   var url_name = generateUrlName(title);
+  if(tags)
+    tags = tags.split(", ");
+  else
+    tags = [];
 
-  var page = new models.Page({ 'title': title, 'body': body, 'url_name': url_name });
+
+  var page = new models.Page({ 'title': title, 'body': body, 'url_name': url_name, 'tags': tags });
   page.save();
   res.redirect('/');
 });

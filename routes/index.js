@@ -10,11 +10,30 @@ router.get('/', function(req, res, next) {
   })
 })
 
-router.get('/wiki/:url', function(req, res){
+router.get('/wiki/:url', function(req, res, next){
   var url = req.params.url;
-  models.Page.findOne({"url_name": url}, "title body", function(err, page){
-    res.render("viewPage", {title: page.title, body: page.body})
+  models.Page.findOne({"url_name": url}, "title body tags", function(err, page){
+  	if(err){
+  		return next(err)
+  	}
+  	if(!page) return res.sendStatus(404)
+    
+    var tags;
+	if(page.tags) 
+		tags = page.tags;
+	else
+		tags = [];
+	
+    res.render("viewPage", {title: page.title, body: page.body, tags: tags})
   });
+});
+
+router.get('/search',function(req,res){
+	var tag = req.query.pageTag;
+	console.log("TAG: ", tag);
+	models.Page.findByTag(tag, function(err, pages){
+		res.render('searchResults', {tag: tag, pages: pages});
+	});
 })
 
 module.exports = router;

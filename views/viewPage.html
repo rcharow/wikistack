@@ -2,6 +2,13 @@
 
 {% block content %}
     <h1>{{title}}</h1>
+    <!-- <h5>{{tags}}</h5> -->
+     <ul class="list-inline">
+    	{% for tag in tags %}
+    		<li>{{tag|tag_link}}</li>
+    	{% endfor %}
+    </ul>	
     <hr>
-	<p>{{body}}</p>
+	<p>{{body | marked}}</p>
+
 {% endblock %}

@@ -1,0 +1,11 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <h1>Pages tagged as {{tag}}</h1>
+    <hr>
+    <ul>
+    	{% for page in pages %}
+    		<li>{{page|page_link}}</li>
+    	{% endfor %}
+    </ul>	
+{% endblock %}
