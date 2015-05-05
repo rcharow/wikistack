@@ -4,4 +4,8 @@
     <h1>{{title}}</h1>
     <hr>
     <p>Welcome to {{title}}</p>
+    <ul>
+    	{% for doc in docs %}
+    		<li>{{doc|page_link}}</li>
+    	{% endfor %}	
 {% endblock %}
