@@ -26,4 +26,14 @@ module.exports = function(swig) {
   }
   tag_link.safe = true;
   swig.setFilter('tag_link',tag_link);
+
+  var similar_link = function(titleTags){
+    console.log("title tags: ", titleTags.tags);
+    if(!titleTags.tags.length){
+      return"<a class='disabled'>Find Similar</a>";
+    }
+    return "<a href='/findsimilar?pageTags="+titleTags.tags+"&pageTitle="+titleTags.title+"'>Find Similar</a>";
+  }
+  similar_link.safe = true;
+  swig.setFilter('similar_link',similar_link);
 };

@@ -23,6 +23,14 @@ pageSchema.statics.findByTag = function(tag,cb){
 		},cb);
 }
 
+pageSchema.statics.findSimilar = function(tags,title,cb){
+  var tags = tags.split(",");
+  this.find({
+        tags: {$elemMatch: {$in: tags}},
+        title: {$ne: title}
+      },cb);
+}
+
 
 
 var userSchema = new mongoose.Schema({

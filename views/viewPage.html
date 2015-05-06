@@ -1,14 +1,17 @@
 {% extends "layout.html" %}
 
 {% block content %}
-    <h1>{{title}}</h1>
+    <h1>{{titleTags.title}}</h1>
     <!-- <h5>{{tags}}</h5> -->
      <ul class="list-inline">
-    	{% for tag in tags %}
+    	{% for tag in titleTags.tags %}
     		<li>{{tag|tag_link}}</li>
     	{% endfor %}
     </ul>	
     <hr>
 	<p>{{body | marked}}</p>
+	<hr>
+		{{titleTags|similar_link}}
+	
 
 {% endblock %}

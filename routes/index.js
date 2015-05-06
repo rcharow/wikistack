@@ -24,16 +24,24 @@ router.get('/wiki/:url', function(req, res, next){
 	else
 		tags = [];
 	
-    res.render("viewPage", {title: page.title, body: page.body, tags: tags})
+    res.render("viewPage", {body: page.body, titleTags: {title: page.title, tags: tags}})
   });
 });
 
 router.get('/search',function(req,res){
 	var tag = req.query.pageTag;
-	console.log("TAG: ", tag);
-	models.Page.findByTag(tag, function(err, pages){
+  models.Page.findByTag(tag, function(err, pages){
+	//console.log("TAG: ", tag, "PAGES: ", pages);
 		res.render('searchResults', {tag: tag, pages: pages});
 	});
+})
+
+router.get('/findsimilar', function(req, res){
+  var tags = req.query.pageTags;
+  var title = req.query.pageTitle;
+  models.Page.findSimilar(tags,title,function(err,pages){
+     res.render('searchResults',{tag: tags, pages:pages})
+  })
 })
 
 module.exports = router;

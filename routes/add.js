@@ -28,7 +28,7 @@ router.post('/submit', function(req, res) {
   };
   var url_name = generateUrlName(title);
   if(tags)
-    tags = tags.split(", ");
+    tags = tags.trim().split(", ");
   else
     tags = [];
 
