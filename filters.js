@@ -36,4 +36,12 @@ module.exports = function(swig) {
   }
   similar_link.safe = true;
   swig.setFilter('similar_link',similar_link);
+
+  var editbuttons_link = function(title){
+      return  "<div class='btn-group' id='editDel'>" + 
+      "<a href='/edit/"+title+"'' class='btn btn-warning'>Edit</a>" +
+      "<a href='/delete/"+title+"' class='btn btn-danger'>Delete</a></div>";
+  }
+  editbuttons_link.safe = true;
+  swig.setFilter('editbuttons_link',editbuttons_link);
 };
